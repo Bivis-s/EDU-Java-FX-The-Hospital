@@ -4,18 +4,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static constants.FxmlValues.START_FXML_PATH;
+
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("fxmls/start.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(START_FXML_PATH));
         primaryStage.setTitle("The hospital");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setMinHeight(720);
-        primaryStage.setMaxHeight(720);
-        primaryStage.setHeight(720);
-        primaryStage.setMinWidth(1280);
-        primaryStage.setMaxWidth(1280);
-        primaryStage.setWidth(1280);
         primaryStage.show();
     }
 
