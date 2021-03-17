@@ -18,12 +18,44 @@
                   <Font name="Georgia" size="48.0" />
                </font>
             </Label>
+            <Button fx:id="singoutButton" layoutX="1168.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Sign out">
+               <font>
+                  <Font name="Malgun Gothic" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
-      <Text fill="#404040" layoutX="607.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="App">
+      <TableView fx:id="doctorTable" layoutX="358.0" layoutY="100.0" prefHeight="620.0" prefWidth="922.0">
+        <columns>
+          <TableColumn fx:id="doctorsNameColumn" prefWidth="354.0" text="Doctor's Name" />
+          <TableColumn fx:id="doctorsPhoneColumn" minWidth="7.0" prefWidth="315.0" text="Doctor's Phone" />
+            <TableColumn fx:id="recordToDoctorColumn" prefWidth="250.0" text="Record" />
+        </columns>
+      </TableView>
+      <Text layoutX="14.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My account:">
          <font>
-            <Font name="Georgia" size="36.0" />
+            <Font name="Malgun Gothic Bold" size="24.0" />
          </font>
       </Text>
+      <Text fx:id="myAccountName" layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="119.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="myAccountPhone" layoutX="14.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="119.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="myAccountType" layoutX="14.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="119.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="myRecords" layoutX="14.0" layoutY="662.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="330.0" style="-fx-background-color: #E83535;" stylesheets="@../styles/main.css" text="My records" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

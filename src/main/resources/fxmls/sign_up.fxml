@@ -18,7 +18,7 @@
                   <Font name="Georgia" size="48.0" />
                </font>
             </Label>
-            <Button fx:id="goToLoginPageButton" layoutX="1168.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" text="Login">
+            <Button fx:id="goToLoginPageButton" layoutX="1168.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Login">
                <font>
                   <Font name="Malgun Gothic" size="16.0" />
                </font>
@@ -35,7 +35,7 @@
             <Font name="Georgia" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="signUpButton" layoutX="470.0" layoutY="469.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="341.0" style="-fx-background-color: #E83535;" text="Sign up" textFill="WHITE">
+      <Button fx:id="signUpButton" layoutX="470.0" layoutY="469.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="341.0" style="-fx-background-color: #E83535;" stylesheets="@../styles/main.css" text="Sign up" textFill="WHITE">
          <font>
             <Font name="Malgun Gothic" size="16.0" />
          </font>
