@@ -68,6 +68,7 @@ public class SignUpController extends BaseController {
             try {
                 hospitalDBConnector.signUpUser(account);
                 showAlert(Alert.AlertType.CONFIRMATION, "Successful", "Account has been created");
+                setCurrentUser(signUpPhoneField.getText(), signUpPasswordField.getText());
                 changePage(signUpButton, APP_FXML_PATH);
             } catch (AccountAlreadyExistsError e) {
                 showAlert(Alert.AlertType.ERROR, "Can't create an account",

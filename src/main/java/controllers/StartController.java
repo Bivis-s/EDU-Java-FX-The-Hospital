@@ -37,7 +37,7 @@ public class StartController extends BaseController {
             String password = passwordField.getText().trim();
 
             if (hospitalDBConnector.isThereSuchAccount(phone, password)) {
-                currentUserAccount = hospitalDBConnector.getAccount(phone, password);
+                setCurrentUser(phone, password);
                 changePage(loginButton, APP_FXML_PATH);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Wrong data", "Wrong data");

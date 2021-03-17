@@ -26,6 +26,10 @@ public abstract class BaseController {
         hospitalDBConnector = HospitalDBConnector.getHospitalDBConnector();
     }
 
+    protected void setCurrentUser(String phone, String password) {
+        currentUserAccount = hospitalDBConnector.getAccount(phone, password);
+    }
+
     protected void changePage(Parent oldParent, String newPageFxmlPath) {
         oldParent.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();

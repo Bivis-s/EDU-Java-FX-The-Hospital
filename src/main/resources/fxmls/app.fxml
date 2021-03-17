@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AppController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AppController">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: #E83535;">
          <children>
@@ -19,6 +13,11 @@
                </font>
             </Label>
             <Button fx:id="singoutButton" layoutX="1168.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Sign out">
+               <font>
+                  <Font name="Malgun Gothic" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="settingButton" layoutX="1056.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Settings">
                <font>
                   <Font name="Malgun Gothic" size="16.0" />
                </font>
@@ -37,17 +36,17 @@
             <Font name="Malgun Gothic Bold" size="24.0" />
          </font>
       </Text>
-      <Text fx:id="myAccountName" layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="119.13671875">
+      <Text fx:id="myAccountName" layoutX="14.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="119.13671875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="myAccountPhone" layoutX="14.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="119.13671875">
+      <Text fx:id="myAccountPhone" layoutX="14.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="119.13671875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="myAccountType" layoutX="14.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="119.13671875">
+      <Text fx:id="myAccountType" layoutX="14.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="119.13671875">
          <font>
             <Font size="16.0" />
          </font>
@@ -57,5 +56,6 @@
             <Font name="Malgun Gothic" size="16.0" />
          </font>
       </Button>
+      <TextArea fx:id="appLog" layoutX="14.0" layoutY="233.0" prefHeight="386.0" prefWidth="330.0" />
    </children>
 </AnchorPane>

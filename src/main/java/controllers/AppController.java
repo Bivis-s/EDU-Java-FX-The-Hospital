@@ -1,31 +1,18 @@
 package controllers;
 
-import java.io.IOError;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import controllers.app_objects.DoctorsTableRow;
-import db_connection.Account;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import static constants.DBValues.ACCOUNTS_NAME_COLUMN_NAME;
-import static constants.DBValues.ACCOUNTS_PHONE_COLUMN_NAME;
-import static constants.FxmlValues.APP_FXML_PATH;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static constants.FxmlValues.START_FXML_PATH;
 
 public class AppController extends BaseController {
@@ -52,6 +39,9 @@ public class AppController extends BaseController {
     private Button singoutButton;
 
     @FXML
+    private Button settingButton;
+
+    @FXML
     private TableView<DoctorsTableRow> doctorTable;
 
     @FXML
@@ -64,7 +54,18 @@ public class AppController extends BaseController {
     private TableColumn<DoctorsTableRow, Button> recordToDoctorColumn;
 
     @FXML
+    private TextArea appLog;
+
+
+
+    @FXML
     void initialize() {
+        myAccountName.setText(currentUserAccount.getName());
+        myAccountPhone.setText(currentUserAccount.getPhone());
+        myAccountType.setText(currentUserAccount.getType());
+
+        appLog.setEditable(false);
+
         singoutButton.setOnAction(event -> changePage(singoutButton, START_FXML_PATH));
 
         ObservableList<DoctorsTableRow> doctorsTableRows = super.getDoctorsTableRows();
