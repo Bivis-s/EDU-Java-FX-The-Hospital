@@ -34,13 +34,7 @@ public class HospitalDBConnector extends BaseDBConnector {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             int accountCount = resultSet.getInt(countColumnLabel);
-            if (accountCount == 1) {
-                return true;
-            } else if (accountCount == 0) {
-                return false;
-            } else {
-                throw new Error("There is more than one account");
-            }
+            return accountCount >= 1;
         } catch (SQLException e) {
             throw new Error(e.getMessage());
         }
@@ -48,7 +42,7 @@ public class HospitalDBConnector extends BaseDBConnector {
 
     public boolean isThereSuchAccount(String phone, String password) {
         try {
-            try (PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from " + ACCOUNTS_TABLE_NAME + " where phone = ? and password = ?;")) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from " + ACCOUNTS_TABLE_NAME + " where " + ACCOUNTS_PHONE_COLUMN_NAME + " = ? and " + ACCOUNTS_PASSWORD_COLUMN_NAME + " = ?;")) {
                 preparedStatement.setString(1, phone);
                 preparedStatement.setString(2, password);
                 return isThere(preparedStatement, "count(*)");
@@ -77,7 +71,7 @@ public class HospitalDBConnector extends BaseDBConnector {
 
     public boolean isThereAccountWithSuchPhone(String phone) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from " + ACCOUNTS_TABLE_NAME + " where phone = ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from " + ACCOUNTS_TABLE_NAME + " where " + ACCOUNTS_PHONE_COLUMN_NAME + " = ?;");
             preparedStatement.setString(1, phone);
             return isThere(preparedStatement, "count(*)");
         } catch (SQLException e) {
@@ -145,5 +139,37 @@ public class HospitalDBConnector extends BaseDBConnector {
 
     public List<Account> getPatientsAccountList() {
         return getAccountListByType(ACCOUNT_TYPE_PATIENT);
+    }
+
+    public boolean isDoctorsTimeBusy(int doctorId, String time, String date) {
+        try {
+            String query = "select count(*)" +
+                    " from " + TICKETS_TABLE_NAME +
+                    " where " + TICKETS_DOCTOR_ID_COLUMN_NAME + " = ? " +
+                    " and " + TICKETS_DATE_COLUMN_NAME + " = ? " +
+                    " and " + TICKETS_TIME_COLUMN_NAME + " = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, doctorId);
+            preparedStatement.setString(2, date);
+            preparedStatement.setString(3, time);
+            return isThere(preparedStatement, "count(*)");
+        } catch (SQLException e) {
+            throw new Error(e);
+        }
+    }
+
+    public void createRecord(int patientId, int doctorId, String date, String time) {
+        try {
+            String query = "insert into " + TICKETS_TABLE_NAME + " (" + TICKETS_DATE_COLUMN_NAME + ", " + TICKETS_TIME_COLUMN_NAME + ", " + TICKETS_PATIENT_ID_COLUMN_NAME + ", " + TICKETS_DOCTOR_ID_COLUMN_NAME + ")" +
+                    "VALUES (?, ?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, date);
+            preparedStatement.setString(2, time);
+            preparedStatement.setInt(3, patientId);
+            preparedStatement.setInt(4, doctorId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Error(e);
+        }
     }
 }
