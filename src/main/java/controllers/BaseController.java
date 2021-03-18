@@ -1,7 +1,9 @@
 package controllers;
 
 import controllers.app_objects.DoctorsTableRow;
+import controllers.app_objects.RecordTableTimeButtons;
 import controllers.event_handlers.RecordButtonHandler;
+import controllers.event_handlers.RecordTimeHandler;
 import db_connection.Account;
 import db_connection.HospitalDBConnector;
 import javafx.collections.FXCollections;
@@ -13,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
+import utils.Utils;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +24,7 @@ import java.util.List;
 public abstract class BaseController {
     protected static Account currentUserAccount = new Account();
     protected HospitalDBConnector hospitalDBConnector;
+    public static int chosenDoctorAccountId;
 
     {
         hospitalDBConnector = HospitalDBConnector.getHospitalDBConnector();
@@ -30,10 +34,9 @@ public abstract class BaseController {
         currentUserAccount = hospitalDBConnector.getAccount(phone, password);
     }
 
-    protected void changePage(Parent oldParent, String newPageFxmlPath) {
-        oldParent.getScene().getWindow().hide();
+    public static void openPage(String newPageFxmlPath) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(newPageFxmlPath));
+        loader.setLocation(BaseController.class.getResource(newPageFxmlPath));
         try {
             loader.load();
         } catch (IOException ioException) {
@@ -45,7 +48,16 @@ public abstract class BaseController {
         stage.show();
     }
 
-    protected void showAlert(Alert.AlertType type, String header, String message) {
+    public static void closePage(Parent parent) {
+        parent.getScene().getWindow().hide();
+    }
+
+    public static void changePage(Parent oldParent, String newPageFxmlPath) {
+        closePage(oldParent);
+        openPage(newPageFxmlPath);
+    }
+
+    public static void showAlert(Alert.AlertType type, String header, String message) {
         Alert alert = new Alert(type);
         alert.setHeaderText(header);
         alert.setContentText(message);
@@ -73,5 +85,31 @@ public abstract class BaseController {
             doctorsTableRows.add(doctorsTableRow);
         }
         return doctorsTableRows;
+    }
+
+    public Button createRecordTimeButton(String time, int doctorId, String date) {
+        boolean isBusy = hospitalDBConnector.isDoctorsTimeBusy(doctorId, time, date);
+        Button button = new Button(time);
+        if (isBusy) {
+            button.setText("BUSY");
+            button.setDefaultButton(true);
+        }
+        button.setOnAction(new RecordTimeHandler(button, currentUserAccount.getId(), doctorId, date, time));
+        return button;
+    }
+
+    protected ObservableList<RecordTableTimeButtons> getRecordTableTimeRows(String date) {
+        ObservableList<RecordTableTimeButtons> recordTableTimeButtonList = FXCollections.observableArrayList();
+        List<String> times1 = Utils.getTimeInRangeWithStep(9, 13, 30);
+        List<String> times2 = Utils.getTimeInRangeWithStep(13, 17, 30);
+        List<String> times3 = Utils.getTimeInRangeWithStep(17, 21, 30);
+        for (int i = 0; i < times1.size(); i++) {
+            recordTableTimeButtonList.add(
+                    new RecordTableTimeButtons(
+                            createRecordTimeButton(times1.get(i), chosenDoctorAccountId, date),
+                            createRecordTimeButton(times2.get(i), chosenDoctorAccountId, date),
+                            createRecordTimeButton(times3.get(i), chosenDoctorAccountId, date)));
+        }
+        return recordTableTimeButtonList;
     }
 }

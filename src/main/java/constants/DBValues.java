@@ -10,4 +10,11 @@ public class DBValues {
 
     public static final String ACCOUNT_TYPE_PATIENT = "patient";
     public static final String ACCOUNT_TYPE_DOCTOR = "doctor";
+
+    public static final String TICKETS_TABLE_NAME = "tickets";
+    public static final String TICKETS_ID_COLUMN_NAME = "id";
+    public static final String TICKETS_DATE_COLUMN_NAME = "date";
+    public static final String TICKETS_TIME_COLUMN_NAME = "time";
+    public static final String TICKETS_PATIENT_ID_COLUMN_NAME = "patient_id";
+    public static final String TICKETS_DOCTOR_ID_COLUMN_NAME = "doctor_id";
 }

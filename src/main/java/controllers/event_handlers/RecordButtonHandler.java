@@ -1,8 +1,13 @@
 package controllers.event_handlers;
 
+import controllers.BaseController;
+import errors.SelfRecordError;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import lombok.extern.log4j.Log4j2;
+
+import static constants.FxmlValues.PICK_THE_DATE_PATH;
 
 @Log4j2
 public class RecordButtonHandler implements EventHandler<ActionEvent> {
@@ -17,5 +22,10 @@ public class RecordButtonHandler implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         log.info("Record Patient " + patientId + " to Doctor " + doctorId);
+        BaseController.chosenDoctorAccountId = doctorId;
+        if (patientId == doctorId) {
+            throw new SelfRecordError("You cannot record yourself");
+        }
+        BaseController.openPage(PICK_THE_DATE_PATH);
     }
 }
