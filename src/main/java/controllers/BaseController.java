@@ -1,7 +1,9 @@
 package controllers;
 
 import controllers.app_objects.DoctorsTableRow;
+import controllers.app_objects.MyRecordsTableRow;
 import controllers.app_objects.RecordTableTimeButtons;
+import controllers.event_handlers.CancelRecordHandler;
 import controllers.event_handlers.RecordButtonHandler;
 import controllers.event_handlers.RecordTimeHandler;
 import db_connection.Account;
@@ -111,5 +113,12 @@ public abstract class BaseController {
                             createRecordTimeButton(times3.get(i), chosenDoctorAccountId, date)));
         }
         return recordTableTimeButtonList;
+    }
+
+    public static Button createCancelRecordButton(int doctorId, String date, String time) {
+        Button button = new Button(time);
+        button.setText("Cancel");
+        button.setOnAction(new CancelRecordHandler(button, currentUserAccount.getId(), doctorId, date, time));
+        return button;
     }
 }

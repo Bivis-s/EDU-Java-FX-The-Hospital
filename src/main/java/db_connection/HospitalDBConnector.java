@@ -1,6 +1,10 @@
 package db_connection;
 
+import controllers.BaseController;
+import controllers.app_objects.MyRecordsTableRow;
 import errors.AccountAlreadyExistsError;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.sql.*;
@@ -170,6 +174,49 @@ public class HospitalDBConnector extends BaseDBConnector {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new Error(e);
+        }
+    }
+
+    public void removeRecord(int patientId, int doctorId, String date, String time) {
+        try {
+            String query = "delete from " + TICKETS_TABLE_NAME + " where " + TICKETS_DATE_COLUMN_NAME + "= ? and " + TICKETS_TIME_COLUMN_NAME + "= ? and " + TICKETS_PATIENT_ID_COLUMN_NAME + "= ? and " + TICKETS_DOCTOR_ID_COLUMN_NAME + "= ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, date);
+            preparedStatement.setString(2, time);
+            preparedStatement.setInt(3, patientId);
+            preparedStatement.setInt(4, doctorId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Error(e);
+        }
+    }
+
+    public ObservableList<MyRecordsTableRow> getRecords(int usersId) {
+        try {
+            String query = "select " + TICKETS_DATE_COLUMN_NAME + ", " + TICKETS_TIME_COLUMN_NAME + ", doctor.id as doctor_id, doctor.name as doctor_name " +
+                    "from " + TICKETS_TABLE_NAME + " " +
+                    "         inner join " + ACCOUNTS_TABLE_NAME + " doctor on doctor.id = " + TICKETS_TABLE_NAME + ".doctor_id " +
+                    "         inner join " + ACCOUNTS_TABLE_NAME + " patient on patient.id = " + TICKETS_TABLE_NAME + ".patient_id " +
+                    "where patient.id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, usersId);
+            ObservableList<MyRecordsTableRow> myRecordsTableRows = FXCollections.observableArrayList();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                MyRecordsTableRow myRecordsTableRow = new MyRecordsTableRow();
+                myRecordsTableRow.setTime(resultSet.getString(TICKETS_TIME_COLUMN_NAME));
+                myRecordsTableRow.setDate(resultSet.getString(TICKETS_DATE_COLUMN_NAME));
+                myRecordsTableRow.setDoctorsName(resultSet.getString("doctor_name"));
+                myRecordsTableRow.setDoctorId(resultSet.getInt("doctor_id"));
+                myRecordsTableRow.setCancelRecordButton(BaseController.createCancelRecordButton(
+                        myRecordsTableRow.getDoctorId(),
+                        myRecordsTableRow.getDate(),
+                        myRecordsTableRow.getTime()));
+                myRecordsTableRows.add(myRecordsTableRow);
+            }
+            return myRecordsTableRows;
+        } catch (SQLException e) {
+            throw new Error(e.getMessage());
         }
     }
 }

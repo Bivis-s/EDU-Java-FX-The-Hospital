@@ -1,5 +1,6 @@
-package controllers;
+package controllers.app_controllers;
 
+import controllers.BaseController;
 import controllers.app_objects.DoctorsTableRow;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static constants.FxmlValues.MY_RECORDS_PATH;
 import static constants.FxmlValues.START_FXML_PATH;
 
 public class AppController extends BaseController {
@@ -67,6 +69,8 @@ public class AppController extends BaseController {
         appLog.setEditable(false);
 
         singoutButton.setOnAction(event -> changePage(singoutButton, START_FXML_PATH));
+
+        myRecords.setOnAction(event -> openPage(MY_RECORDS_PATH));
 
         ObservableList<DoctorsTableRow> doctorsTableRows = super.getDoctorsTableRows();
         doctorsNameColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsName"));
