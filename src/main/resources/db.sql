@@ -1,4 +1,5 @@
 drop table accounts;
+drop table tickets;
 
 create table accounts
 (
@@ -47,3 +48,9 @@ select date, time, doctor.id as doctor_id, patient.name as patient_name, patient
 from tickets
          inner join accounts doctor on doctor.id = tickets.doctor_id
          inner join accounts patient on patient.id = tickets.patient_id;
+
+select date, time, doctor.id as doctor_id, doctor.name as doctor_name
+from tickets
+         inner join accounts doctor on doctor.id = tickets.doctor_id
+         inner join accounts patient on patient.id = tickets.patient_id
+where patient.id = 1;
