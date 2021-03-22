@@ -1,6 +1,8 @@
 package utils;
 
 
+import errors.IncorrectAccountDataError;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,5 +15,13 @@ public class Utils {
             }
         }
         return dates;
+    }
+
+    public static boolean isAccountStringEmpty(String field, String errorMessage) {
+        if (field != null && !field.equals("")) {
+            return true;
+        } else {
+            throw new IncorrectAccountDataError(errorMessage);
+        }
     }
 }
