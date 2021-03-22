@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PickTheDateController extends BaseController {
@@ -41,11 +42,16 @@ public class PickTheDateController extends BaseController {
     @FXML
     void initialize() {
         dateSelector.setOnAction(event -> {
-            ObservableList<RecordTableTimeButtons> recordTableTimeRows = super.getRecordTableTimeRows(dateSelector.getValue().toString());
-            dateTableFirstColumn.setCellValueFactory(new PropertyValueFactory<>("firstRecordButtons"));
-            dateTableSecondColumn.setCellValueFactory(new PropertyValueFactory<>("secondRecordButtons"));
-            dateTableThirdColumn.setCellValueFactory(new PropertyValueFactory<>("thirdRecordButtons"));
-            dateTable.setItems(recordTableTimeRows);
+            ObservableList<RecordTableTimeButtons> recordTableTimeRows;
+            try {
+                recordTableTimeRows = getRecordTableTimeRows(dateSelector.getValue().toString());
+                dateTableFirstColumn.setCellValueFactory(new PropertyValueFactory<>("firstRecordButtons"));
+                dateTableSecondColumn.setCellValueFactory(new PropertyValueFactory<>("secondRecordButtons"));
+                dateTableThirdColumn.setCellValueFactory(new PropertyValueFactory<>("thirdRecordButtons"));
+                dateTable.setItems(recordTableTimeRows);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

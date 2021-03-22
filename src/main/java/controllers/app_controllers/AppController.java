@@ -12,10 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static constants.FxmlValues.MY_RECORDS_PATH;
-import static constants.FxmlValues.START_FXML_PATH;
+import static constants.FxmlValues.LOGIN_FXML_PATH;
 
 public class AppController extends BaseController {
 
@@ -62,20 +63,24 @@ public class AppController extends BaseController {
 
     @FXML
     void initialize() {
-        myAccountName.setText(currentUserAccount.getName());
-        myAccountPhone.setText(currentUserAccount.getPhone());
-        myAccountType.setText(currentUserAccount.getType());
+        myAccountName.setText(currentPatient.getName());
+        myAccountPhone.setText(currentPatient.getAccount().getPhone());
+        myAccountType.setText(currentPatient.getAddress());
 
         appLog.setEditable(false);
 
-        singoutButton.setOnAction(event -> changePage(singoutButton, START_FXML_PATH));
+        singoutButton.setOnAction(event -> changePage(singoutButton, LOGIN_FXML_PATH));
 
         myRecords.setOnAction(event -> openPage(MY_RECORDS_PATH));
 
-        ObservableList<DoctorsTableRow> doctorsTableRows = super.getDoctorsTableRows();
-        doctorsNameColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsName"));
-        doctorsPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsPhone"));
-        recordToDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("recordButton"));
-        doctorTable.setItems(doctorsTableRows);
+        try { // TODO подогнать
+            ObservableList<DoctorsTableRow> doctorsTableRows = getDoctorsTableRows();
+            doctorsNameColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsName"));
+            doctorsPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsPhone"));
+            recordToDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("recordButton"));
+            doctorTable.setItems(doctorsTableRows);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

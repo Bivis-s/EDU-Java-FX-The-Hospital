@@ -7,5 +7,6 @@ import lombok.Data;
 public class DoctorsTableRow {
     private String doctorsName;
     private String doctorsPhone;
+    private String doctorsType;
     private Button recordButton;
 }
