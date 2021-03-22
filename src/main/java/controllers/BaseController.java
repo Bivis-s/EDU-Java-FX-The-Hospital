@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import utils.Utils;
 
@@ -32,24 +33,32 @@ public abstract class BaseController {
     protected static Doctor currentDoctor;
     public static int chosenDoctorId;
 
-    @Getter
-    private final HospitalDBConnector dbConnector = HospitalDBConnector.getHospitalDBConnector();
-
-    public void setCurrentAccount(Account account) {
-        currentAccount = account;
-    }
-
     public Account getCurrentAccount() {
         return currentAccount;
     }
 
-    public void setCurrentPatient(Patient patient) {
-        currentPatient = patient;
+    public void setCurrentAccount(Account currentAccount) {
+        BaseController.currentAccount = currentAccount;
+    }
+
+    public Patient getCurrentPatient() {
+        return currentPatient;
+    }
+
+    public void setCurrentPatient(Patient currentPatient) {
+        BaseController.currentPatient = currentPatient;
+    }
+
+    public Doctor getCurrentDoctor() {
+        return currentDoctor;
     }
 
     public void setCurrentDoctor(Doctor currentDoctor) {
         BaseController.currentDoctor = currentDoctor;
     }
+
+    @Getter
+    private final HospitalDBConnector dbConnector = HospitalDBConnector.getHospitalDBConnector();
 
     public void openPage(String newPageFxmlPath) {
         FXMLLoader loader = new FXMLLoader();

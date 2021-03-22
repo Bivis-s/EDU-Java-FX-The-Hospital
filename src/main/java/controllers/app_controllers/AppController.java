@@ -19,57 +19,44 @@ import static constants.FxmlValues.MY_RECORDS_PATH;
 import static constants.FxmlValues.LOGIN_FXML_PATH;
 
 public class AppController extends BaseController {
-
     @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private Text myAccountPhone;
-
     @FXML
-    private Text myAccountType;
-
+    private Text myAccountBirthDate;
     @FXML
     private Text myAccountName;
-
     @FXML
     private Button myRecords;
-
     @FXML
-    private Button singoutButton;
-
+    private Button signoutButton;
     @FXML
     private Button settingButton;
-
     @FXML
     private TableView<DoctorsTableRow> doctorTable;
-
     @FXML
     private TableColumn<DoctorsTableRow, String> doctorsNameColumn;
-
     @FXML
     private TableColumn<DoctorsTableRow, String> doctorsPhoneColumn;
-
+    @FXML
+    private TableColumn<?, ?> doctorsTypeColumn;
     @FXML
     private TableColumn<DoctorsTableRow, Button> recordToDoctorColumn;
-
     @FXML
     private TextArea appLog;
-
-
 
     @FXML
     void initialize() {
         myAccountName.setText(currentPatient.getName());
         myAccountPhone.setText(currentPatient.getAccount().getPhone());
-        myAccountType.setText(currentPatient.getAddress());
+        myAccountBirthDate.setText(currentPatient.getDateOfBirth());
 
         appLog.setEditable(false);
 
-        singoutButton.setOnAction(event -> changePage(singoutButton, LOGIN_FXML_PATH));
+        signoutButton.setOnAction(event -> changePage(signoutButton, LOGIN_FXML_PATH));
 
         myRecords.setOnAction(event -> openPage(MY_RECORDS_PATH));
 
@@ -77,6 +64,7 @@ public class AppController extends BaseController {
             ObservableList<DoctorsTableRow> doctorsTableRows = getDoctorsTableRows();
             doctorsNameColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsName"));
             doctorsPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsPhone"));
+            doctorsTypeColumn.setCellValueFactory(new PropertyValueFactory<>("doctorsType"));
             recordToDoctorColumn.setCellValueFactory(new PropertyValueFactory<>("recordButton"));
             doctorTable.setItems(doctorsTableRows);
         } catch (SQLException e) {

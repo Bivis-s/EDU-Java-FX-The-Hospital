@@ -31,7 +31,7 @@ public class SignUpPatientHandler extends BaseHandler {
     }
 
     @Override
-    public void handle(ActionEvent event) {
+    public void handle(ActionEvent event) { //TODO Добавить автоматическое создание медкарты при регистрации
         Patient patient = new Patient();
         try {
             patient.setName(nameField.getText());
@@ -39,6 +39,7 @@ public class SignUpPatientHandler extends BaseHandler {
             patient.setDateOfBirth(Date.valueOf(birthDatePicker.getValue()).toString());
             patient.setAccount(controller.getCurrentAccount());
             getDbConnector().addPatient(patient);
+            getDbConnector().addMedicalCard(patient.getId());
             controller.setCurrentPatient(getDbConnector().getPatient(controller.getCurrentAccount().getId()));
             controller.showAlert(Alert.AlertType.CONFIRMATION, "Successful", "Account has been created");
             controller.changePage(getParent(), LOGIN_FXML_PATH);

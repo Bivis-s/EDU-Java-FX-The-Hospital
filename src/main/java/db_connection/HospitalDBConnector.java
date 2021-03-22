@@ -1,9 +1,6 @@
 package db_connection;
 
-import db_objects.Account;
-import db_objects.Disease;
-import db_objects.DoctorAppointment;
-import db_objects.PatientAppointment;
+import db_objects.*;
 import db_objects.users.Doctor;
 import db_objects.users.Patient;
 import errors.NoSuchAccountError;
@@ -171,11 +168,54 @@ public class HospitalDBConnector {
         return doctor;
     }
 
-    public void addMedicalCard(Patient patient) throws SQLException {
+    public void addMedicalCard(int patientID) throws SQLException {
         String query = "insert into medical_cards (patient_id) values (?);";
         PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, patient.getId());
+        ps.setInt(1, patientID);
         ps.executeUpdate();
+    }
+
+    public int getMedicalCardId(int patientId) throws SQLException {
+        String query = "select id " +
+                "from medical_cards " +
+                "where patient_id = ?;";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, patientId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("id");
+    }
+
+    public Disease getDisease(int diseaseId) throws SQLException {
+        String query = "select id, name, degree " +
+                "from diseases " +
+                "where id = ?;";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, diseaseId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        Disease disease = new Disease();
+        disease.setId(rs.getInt("id"));
+        disease.setName(rs.getString("name"));
+        disease.setDegree(rs.getInt("degree"));
+        return disease;
+    }
+
+    public List<MedicalRecord> getMedicalRecords(int cardId) throws SQLException {
+        String query = "select id, note, disease_id " +
+                "from medical_records " +
+                "         inner join card_records on medical_records.id = card_records.medical_record_id " +
+                "where card_records.medical_card_id = ?;";
+        ResultSet rs = connection.prepareStatement(query).executeQuery();
+        List<MedicalRecord> medicalRecords = new ArrayList<>();
+        while (rs.next()) {
+            MedicalRecord record = new MedicalRecord();
+            record.setId(rs.getInt("id"));
+            record.setNote(rs.getString("note"));
+            record.setDisease(getDisease(rs.getInt("disease_id")));
+            medicalRecords.add(record);
+        }
+        return medicalRecords;
     }
 
     public void addDiseases(String name, int degree) throws SQLException {

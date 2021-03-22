@@ -8,6 +8,6 @@ public class MyRecordsTableRow {
     private String date;
     private String time;
     private String doctorsName;
-    private Button cancelRecordButton;
-    private int doctorId;
+    private String doctorsType;
+    private Button cancelAppointmentButton;
 }
