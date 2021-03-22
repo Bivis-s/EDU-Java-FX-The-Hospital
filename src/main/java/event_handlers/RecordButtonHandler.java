@@ -6,7 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import lombok.extern.log4j.Log4j2;
 
-import static constants.FxmlValues.PICK_THE_DATE_PATH;
+import static constants.FxmlValues.PICK_THE_DATE_FXML_PATH;
 
 @Log4j2
 public class RecordButtonHandler extends BaseHandler {
@@ -25,6 +25,6 @@ public class RecordButtonHandler extends BaseHandler {
     public void handle(ActionEvent event) {
         log.info("Record Patient " + patientId + " to Doctor " + doctorId);
         BaseController.chosenDoctorId = doctorId;
-        baseController.openPage(PICK_THE_DATE_PATH);
+        baseController.openPage(PICK_THE_DATE_FXML_PATH);
     }
 }

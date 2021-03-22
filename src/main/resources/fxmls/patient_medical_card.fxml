@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.app_controllers.PatientMedicalCardController">
+   <children>
+      <AnchorPane prefHeight="85.0" prefWidth="1000.0" style="-fx-background-color: #E83535;">
+         <children>
+            <Label layoutX="357.0" layoutY="17.0" text="My medical card" textFill="WHITE">
+               <font>
+                  <Font name="Malgun Gothic Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="medcardTable" layoutX="265.0" layoutY="127.0" prefHeight="425.0" prefWidth="685.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="125.0">
+        <columns>
+          <TableColumn fx:id="diseaseName" editable="false" prefWidth="168.0" resizable="false" text="Disease name" />
+          <TableColumn fx:id="diseaseDegree" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Disease degree" />
+            <TableColumn fx:id="diseaseNote" editable="false" minWidth="9.0" prefWidth="416.0" resizable="false" sortable="false" text="Note" />
+        </columns>
+      </TableView>
+      <Text fx:id="nameField" layoutX="14.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="birthdayField" layoutX="14.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="addressField" layoutX="14.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="phoneField" layoutX="14.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

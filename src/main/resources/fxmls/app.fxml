@@ -63,6 +63,11 @@
             <Font name="Malgun Gothic" size="16.0" />
          </font>
       </Button>
-      <TextArea fx:id="appLog" layoutX="14.0" layoutY="233.0" prefHeight="386.0" prefWidth="330.0" />
+      <TextArea fx:id="appLog" layoutX="14.0" layoutY="233.0" prefHeight="199.0" prefWidth="330.0" />
+      <Button fx:id="myMedicalCard" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="330.0" style="-fx-background-color: #E83535;" stylesheets="@../styles/main.css" text="My medical card" textFill="WHITE">
+         <font>
+            <Font name="Malgun Gothic" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

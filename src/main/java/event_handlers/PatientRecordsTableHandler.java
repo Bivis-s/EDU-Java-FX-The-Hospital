@@ -59,7 +59,7 @@ public class PatientRecordsTableHandler extends BaseHandler {
     }
 
     private ObservableList<MyRecordsTableRow> getPatientAppointmentRowList() throws SQLException {
-        ObservableList<MyRecordsTableRow> doctorsTableRows = FXCollections.observableArrayList();
+        ObservableList<MyRecordsTableRow> rows = FXCollections.observableArrayList();
         List<PatientAppointment> patientAppointments =
                 getDbConnector().getPatientAppointments(controller.getCurrentPatient().getId());
         for (PatientAppointment appointment : patientAppointments) {
@@ -69,9 +69,9 @@ public class PatientRecordsTableHandler extends BaseHandler {
             row.setDoctorsName(appointment.getDoctorName());
             row.setDoctorsType(appointment.getDoctorType());
             row.setCancelAppointmentButton(createCancelAppointmentButton(appointment));
-            doctorsTableRows.add(row);
+            rows.add(row);
         }
-        return doctorsTableRows;
+        return rows;
     }
 
     @Override

@@ -206,7 +206,9 @@ public class HospitalDBConnector {
                 "from medical_records " +
                 "         inner join card_records on medical_records.id = card_records.medical_record_id " +
                 "where card_records.medical_card_id = ?;";
-        ResultSet rs = connection.prepareStatement(query).executeQuery();
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, cardId);
+        ResultSet rs = ps.executeQuery();
         List<MedicalRecord> medicalRecords = new ArrayList<>();
         while (rs.next()) {
             MedicalRecord record = new MedicalRecord();

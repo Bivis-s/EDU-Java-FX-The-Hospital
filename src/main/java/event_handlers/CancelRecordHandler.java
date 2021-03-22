@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 
 import java.sql.SQLException;
 
-import static constants.FxmlValues.MY_RECORDS_PATH;
+import static constants.FxmlValues.MY_RECORDS_FXML_PATH;
 
 public class CancelRecordHandler extends BaseHandler {
     private final BaseController baseController;
@@ -27,7 +27,7 @@ public class CancelRecordHandler extends BaseHandler {
             getDbConnector().deleteAppointment(appointmentId);
             baseController.showAlert(Alert.AlertType.CONFIRMATION, "Record is canceled", "Record is canceled");
             baseController.closePage(getParent());
-            baseController.openPage(MY_RECORDS_PATH);
+            baseController.openPage(MY_RECORDS_FXML_PATH);
         } catch (SQLException e) {
             e.printStackTrace();
         }

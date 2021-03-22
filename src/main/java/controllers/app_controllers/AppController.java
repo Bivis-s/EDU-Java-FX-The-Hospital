@@ -15,8 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static constants.FxmlValues.MY_RECORDS_PATH;
-import static constants.FxmlValues.LOGIN_FXML_PATH;
+import static constants.FxmlValues.*;
 
 public class AppController extends BaseController {
     @FXML
@@ -47,6 +46,8 @@ public class AppController extends BaseController {
     private TableColumn<DoctorsTableRow, Button> recordToDoctorColumn;
     @FXML
     private TextArea appLog;
+    @FXML
+    private Button myMedicalCard;
 
     @FXML
     void initialize() {
@@ -58,7 +59,9 @@ public class AppController extends BaseController {
 
         signoutButton.setOnAction(event -> changePage(signoutButton, LOGIN_FXML_PATH));
 
-        myRecords.setOnAction(event -> openPage(MY_RECORDS_PATH));
+        myRecords.setOnAction(event -> openPage(MY_RECORDS_FXML_PATH));
+
+        myMedicalCard.setOnAction(event -> openPage(PATIENT_MEDCARD_FXML_PATH));
 
         try { // TODO подогнать
             ObservableList<DoctorsTableRow> doctorsTableRows = getDoctorsTableRows();
