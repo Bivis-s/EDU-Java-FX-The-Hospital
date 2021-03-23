@@ -3,7 +3,7 @@ package event_handlers;
 import controllers.SignUpPatientController;
 import db_connection.HospitalDBConnector;
 import db_objects.users.Patient;
-import errors.IncorrectAccountDataError;
+import errors.IncorrectDataError;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -31,7 +31,7 @@ public class SignUpPatientHandler extends BaseHandler {
     }
 
     @Override
-    public void handle(ActionEvent event) { //TODO Добавить автоматическое создание медкарты при регистрации
+    public void handle(ActionEvent event) {
         Patient patient = new Patient();
         try {
             patient.setName(nameField.getText());
@@ -39,11 +39,11 @@ public class SignUpPatientHandler extends BaseHandler {
             patient.setDateOfBirth(Date.valueOf(birthDatePicker.getValue()).toString());
             patient.setAccount(controller.getCurrentAccount());
             getDbConnector().addPatient(patient);
-            controller.setCurrentPatient(getDbConnector().getPatient(controller.getCurrentAccount().getId()));
+            controller.setCurrentPatient(getDbConnector().getPatientByAccountId(controller.getCurrentAccount().getId()));
             getDbConnector().addMedicalCard(controller.getCurrentPatient().getId());
             controller.showAlert(Alert.AlertType.CONFIRMATION, "Successful", "Account has been created");
             controller.changePage(getParent(), LOGIN_FXML_PATH);
-        } catch (IncorrectAccountDataError | SQLException e) {
+        } catch (IncorrectDataError | SQLException e) {
             controller.showAlert(Alert.AlertType.WARNING, "Can't create an account", e.getMessage());
         }
     }

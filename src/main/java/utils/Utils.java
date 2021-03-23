@@ -1,7 +1,7 @@
 package utils;
 
 
-import errors.IncorrectAccountDataError;
+import errors.IncorrectDataError;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.ResultSet;
@@ -22,11 +22,11 @@ public class Utils {
         return dates;
     }
 
-    public static boolean isAccountStringEmpty(String field, String errorMessage) {
+    public static boolean isEntityStringEmpty(String field, String errorMessage) {
         if (field != null && !field.equals("")) {
             return true;
         } else {
-            throw new IncorrectAccountDataError(errorMessage);
+            throw new IncorrectDataError(errorMessage);
         }
     }
 

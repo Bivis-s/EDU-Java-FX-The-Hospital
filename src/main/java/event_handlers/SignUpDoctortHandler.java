@@ -3,7 +3,7 @@ package event_handlers;
 import controllers.SignUpDoctorController;
 import db_connection.HospitalDBConnector;
 import db_objects.users.Doctor;
-import errors.IncorrectAccountDataError;
+import errors.IncorrectDataError;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -37,7 +37,7 @@ public class SignUpDoctortHandler extends BaseHandler {
             controller.setCurrentDoctor(getDbConnector().getDoctor(controller.getCurrentAccount().getId()));
             controller.showAlert(Alert.AlertType.CONFIRMATION, "Successful", "Account has been created");
             controller.changePage(getParent(), LOGIN_FXML_PATH);
-        } catch (IncorrectAccountDataError | SQLException e) {
+        } catch (IncorrectDataError | SQLException e) {
             e.printStackTrace();
             controller.showAlert(Alert.AlertType.WARNING, "Can't create an account", e.getMessage());
         }

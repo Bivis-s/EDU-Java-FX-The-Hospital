@@ -17,19 +17,19 @@ public class Patient extends Entity {
     private Account account;
 
     public void setName(String name) {
-        if (Utils.isAccountStringEmpty(name, "Name field is empty")) {
+        if (Utils.isEntityStringEmpty(name, "Name field is empty")) {
             this.name = name;
         }
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        if (Utils.isAccountStringEmpty(dateOfBirth, "Date of birth field is empty")) {
+        if (Utils.isEntityStringEmpty(dateOfBirth, "Date of birth field is empty")) {
             this.dateOfBirth = dateOfBirth;
         }
     }
 
     public void setAddress(String address) {
-        if (Utils.isAccountStringEmpty(address, "Address field is empty")) {
+        if (Utils.isEntityStringEmpty(address, "Address field is empty")) {
             this.address = address;
         }
     }

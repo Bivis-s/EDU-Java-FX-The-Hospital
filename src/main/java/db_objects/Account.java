@@ -12,13 +12,13 @@ public class Account extends Entity {
     private String password;
 
     public void setPhone(String phone) {
-        if (Utils.isAccountStringEmpty(phone, "Empty phone field")) {
+        if (Utils.isEntityStringEmpty(phone, "Empty phone field")) {
             this.phone = phone;
         }
     }
 
     public void setPassword(String password) {
-        if (Utils.isAccountStringEmpty(password, "Empty password field")) {
+        if (Utils.isEntityStringEmpty(password, "Empty password field")) {
             this.password = password;
         }
     }

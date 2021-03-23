@@ -61,7 +61,7 @@ public class DoctorAppTableHandler extends BaseHandler {
         for (DoctorAppointment appointment : appointments) {
             DoctorAppTableRow row = new DoctorAppTableRow();
             row.setPatientName(appointment.getPatientName());
-            row.setPatientPhone(getDbConnector().getPatient(appointment.getPatientId()).getAccount().getPhone());
+            row.setPatientPhone(getDbConnector().getPatientById(appointment.getPatientId()).getAccount().getPhone());
             row.setDate(appointment.getDate());
             row.setTime(appointment.getTime());
             row.setOpenCard(createOpenCardButton(appointment.getCardId()));

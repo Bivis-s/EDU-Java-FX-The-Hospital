@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
+import static constants.FxmlValues.DISEASES_FXML_PATH;
 import static constants.FxmlValues.LOGIN_FXML_PATH;
 
 public class DoctorAppController extends BaseController {
@@ -55,6 +56,8 @@ public class DoctorAppController extends BaseController {
         typeText.setText(getCurrentDoctor().getType());
 
         signoutButton.setOnAction(event -> changePage(signoutButton, LOGIN_FXML_PATH));
+
+        diseasesButton.setOnAction(event -> openPage(DISEASES_FXML_PATH));
 
         new DoctorAppTableHandler(doctorTable, getDbConnector(), this, doctorTable,
                 patientNameColumn, patientPhoneColumn, appointmentDateColumn, appointmentTimeColumn,

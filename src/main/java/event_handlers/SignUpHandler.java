@@ -3,7 +3,7 @@ package event_handlers;
 import controllers.SignUpController;
 import db_connection.HospitalDBConnector;
 import db_objects.Account;
-import errors.IncorrectAccountDataError;
+import errors.IncorrectDataError;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -43,7 +43,7 @@ public class SignUpHandler extends BaseHandler {
             account.setPhone(phone);
             account.setPassword(password);
             if (getDbConnector().isThereAccountWithSuchPhone(account.getPhone())) {
-                throw new IncorrectAccountDataError("An account with same number is already exists");
+                throw new IncorrectDataError("An account with same number is already exists");
             }
             getDbConnector().addAccount(account);
             controller.setCurrentAccount(getDbConnector().getAccount(phone, password));
@@ -52,7 +52,7 @@ public class SignUpHandler extends BaseHandler {
             } else {
                 controller.changePage(getParent(), SIGN_UP_DOCTOR_PATH);
             }
-        } catch (IncorrectAccountDataError | SQLException e) {
+        } catch (IncorrectDataError | SQLException e) {
             controller.showAlert(Alert.AlertType.WARNING, "Can't create an account", e.getMessage());
         }
     }

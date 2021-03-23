@@ -14,13 +14,13 @@ public class Doctor extends Entity {
     private Account account;
 
     public void setName(String name) {
-        if (Utils.isAccountStringEmpty(name, "Name field is empty")) {
+        if (Utils.isEntityStringEmpty(name, "Name field is empty")) {
             this.name = name;
         }
     }
 
     public void setType(String type) {
-        if (Utils.isAccountStringEmpty(type, "Type field is empty")) {
+        if (Utils.isEntityStringEmpty(type, "Type field is empty")) {
             this.type = type;
         }
     }

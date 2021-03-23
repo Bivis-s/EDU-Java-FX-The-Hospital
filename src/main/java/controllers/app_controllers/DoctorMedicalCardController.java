@@ -55,7 +55,7 @@ public class DoctorMedicalCardController extends BaseController {
     void initialize() {
         try {
             Patient patient = getDbConnector()
-                    .getPatient(getDbConnector()
+                    .getPatientById(getDbConnector()
                             .getAccountById(getDbConnector()
                                     .getPatientIdByMedicalCardId(getChosenCardId()))
                             .getId());

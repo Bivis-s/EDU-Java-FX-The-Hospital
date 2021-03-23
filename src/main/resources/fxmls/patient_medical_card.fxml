@@ -7,13 +7,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.app_controllers.PatientMedicalCardController">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.app_controllers.PatientMedicalCardController">
    <children>
       <AnchorPane prefHeight="85.0" prefWidth="1100.0" style="-fx-background-color: #E83535;">
          <children>
-            <Label layoutX="407.0" layoutY="17.0" text="My medical card" textFill="WHITE">
+            <Label layoutX="374.0" layoutY="15.0" text="My medical card" textFill="WHITE">
                <font>
-                  <Font name="Malgun Gothic Bold" size="36.0" />
+                  <Font name="Georgia" size="48.0" />
                </font>
             </Label>
          </children>

@@ -104,7 +104,25 @@ public class HospitalDBConnector {
         ps.executeUpdate();
     }
 
-    public Patient getPatient(int accountId) throws SQLException {
+    public Patient getPatientById(int patientId) throws SQLException {
+        String query = "select patients.id, name, date_of_birth, address, account_id " +
+                "from patients " +
+                "         inner join accounts on accounts.id = patients.account_id " +
+                "where patients.id = ?;";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, patientId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        Patient patient = new Patient();
+        patient.setId(rs.getInt("id"));
+        patient.setName(rs.getString("name"));
+        patient.setDateOfBirth(rs.getString("date_of_birth"));
+        patient.setAddress(rs.getString("address"));
+        patient.setAccount(getAccountById(rs.getInt("account_id")));
+        return patient;
+    }
+
+    public Patient getPatientByAccountId(int accountId) throws SQLException {
         String query = "select patients.id, name, date_of_birth, address, account_id " +
                 "from patients " +
                 "         inner join accounts on accounts.id = patients.account_id " +
@@ -181,6 +199,29 @@ public class HospitalDBConnector {
         disease.setName(rs.getString("name"));
         disease.setDegree(rs.getInt("degree"));
         return disease;
+    }
+
+    public List<Disease> getDiseaseList() throws SQLException {
+        String query = "select id, name, degree " +
+                "from diseases;";
+        ResultSet rs = connection.createStatement().executeQuery(query);
+        List<Disease> diseaseList = new ArrayList<>();
+        while (rs.next()) {
+            Disease disease = new Disease();
+            disease.setId(rs.getInt("id"));
+            disease.setName(rs.getString("name"));
+            disease.setDegree(rs.getInt("degree"));
+            diseaseList.add(disease);
+        }
+        return diseaseList;
+    }
+
+    public void deleteDiseaseById(int diseaseId) throws SQLException {
+        String query = "delete from diseases " +
+                "where id = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, diseaseId);
+        ps.executeUpdate();
     }
 
     public List<MedicalRecord> getMedicalRecords(int cardId) throws SQLException {

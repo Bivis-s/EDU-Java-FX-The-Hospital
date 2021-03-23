@@ -22,7 +22,7 @@ public class Tests {
         Account account = connector.getAccount("w", "w");
         log.info(account);
         log.info(connector.isPatientsAccount(account));
-        Patient patient = connector.getPatient(account.getId());
+        Patient patient = connector.getPatientByAccountId(account.getId());
         log.info(patient);
     }
 }

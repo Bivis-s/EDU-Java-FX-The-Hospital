@@ -36,7 +36,7 @@ public class LoginHandler extends BaseHandler {
         try {
             Account account = getDbConnector().getAccount(phoneField.getText().trim(), passwordField.getText().trim());
             if (getDbConnector().isPatientsAccount(account)) {
-                loginController.setCurrentPatient(getDbConnector().getPatient(account.getId()));
+                loginController.setCurrentPatient(getDbConnector().getPatientByAccountId(account.getId()));
                 loginController.changePage(getParent(), PATIENT_APP_FXML_PATH);
             } else if (getDbConnector().isDoctorsAccount(account)) {
                 loginController.setCurrentDoctor(getDbConnector().getDoctor(account.getId()));
