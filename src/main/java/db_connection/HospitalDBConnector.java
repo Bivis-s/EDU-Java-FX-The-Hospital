@@ -243,6 +243,32 @@ public class HospitalDBConnector {
         return medicalRecords;
     }
 
+    public void addMedicalRecord(String note, int diseaseId) throws SQLException {
+        String query = "insert into medical_records (note, disease_id) " +
+                "values (?, ?);";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, note);
+        ps.setInt(2, diseaseId);
+        ps.executeUpdate();
+    }
+
+    public int getLastMedicalRecordId() throws SQLException {
+        String query = "select max(id) " +
+                "from medical_records;";
+        ResultSet rs = connection.createStatement().executeQuery(query);
+        rs.next();
+        return rs.getInt("max(id)");
+    }
+
+    public void addMedicalRecordToCard(int cardId, int recordId) throws SQLException {
+        String query = "insert into card_records (medical_card_id, medical_record_id) " +
+                "values (?, ?);";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, cardId);
+        ps.setInt(2, recordId);
+        ps.executeUpdate();
+    }
+
     public void addDiseases(String name, int degree) throws SQLException {
         String query = "insert into diseases(name, degree) values (?, ?);";
         PreparedStatement ps = connection.prepareStatement(query);

@@ -14,4 +14,6 @@ public class FxmlValues {
     public static final String DOCTOR_MEDCARD_FXML_PATH = FXMLS_PATH + "doctor_medical_card.fxml";
     public static final String DISEASES_FXML_PATH = FXMLS_PATH + "diseases.fxml";
     public static final String ADD_DISEASE_FXML_PATH = FXMLS_PATH + "add_disease.fxml";
+    public static final String SELECT_DISEASE_FXML_PATH = FXMLS_PATH + "select_disease.fxml";
+    public static final String ADD_MEDICAL_RECORD_FXML_PATH = FXMLS_PATH + "add_medical_record.fxml";
 }
