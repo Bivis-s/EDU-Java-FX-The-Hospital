@@ -1,8 +1,5 @@
 package controllers.app_controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import controllers.BaseController;
 import db_objects.Disease;
 import event_handlers.AddMedicalRecordHandler;
@@ -10,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static constants.FxmlValues.SELECT_DISEASE_FXML_PATH;
 

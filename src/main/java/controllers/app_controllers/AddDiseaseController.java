@@ -1,13 +1,13 @@
 package controllers.app_controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import controllers.BaseController;
 import event_handlers.AddDiseaseHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class AddDiseaseController extends BaseController {
     @FXML

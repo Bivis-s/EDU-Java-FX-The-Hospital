@@ -22,11 +22,6 @@
                   <Font name="Malgun Gothic" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="settingButton" layoutX="1056.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Settings">
-               <font>
-                  <Font name="Malgun Gothic" size="16.0" />
-               </font>
-            </Button>
          </children>
       </AnchorPane>
       <TableView fx:id="doctorTable" layoutX="358.0" layoutY="100.0" prefHeight="620.0" prefWidth="922.0">

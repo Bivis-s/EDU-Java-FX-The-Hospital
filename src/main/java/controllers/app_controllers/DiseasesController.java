@@ -1,8 +1,5 @@
 package controllers.app_controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import controllers.BaseController;
 import controllers.app_objects.DiseasesTableRow;
 import event_handlers.DiseasesTableHandler;
@@ -11,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static constants.FxmlValues.ADD_DISEASE_FXML_PATH;
 

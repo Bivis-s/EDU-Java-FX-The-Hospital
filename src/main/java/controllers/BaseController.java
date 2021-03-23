@@ -1,11 +1,11 @@
 package controllers;
 
 import controllers.app_objects.RecordTableTimeButtons;
-import db_objects.Account;
-import event_handlers.RecordTimeHandler;
 import db_connection.HospitalDBConnector;
+import db_objects.Account;
 import db_objects.users.Doctor;
 import db_objects.users.Patient;
+import event_handlers.RecordTimeHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;

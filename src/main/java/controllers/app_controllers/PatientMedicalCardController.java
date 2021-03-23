@@ -1,8 +1,5 @@
 package controllers.app_controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import controllers.BaseController;
 import controllers.app_objects.PatientMedicalCardTableRow;
 import event_handlers.PatientMedicalCardTableHandler;
@@ -11,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class PatientMedicalCardController extends BaseController {
     @FXML

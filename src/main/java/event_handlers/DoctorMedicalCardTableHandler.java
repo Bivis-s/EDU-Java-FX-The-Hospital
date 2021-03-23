@@ -1,15 +1,12 @@
 package event_handlers;
 
 import controllers.app_controllers.DoctorMedicalCardController;
-import controllers.app_controllers.PatientMedicalCardController;
 import controllers.app_objects.DoctorMedicalCardTableRow;
-import controllers.app_objects.PatientMedicalCardTableRow;
 import db_connection.HospitalDBConnector;
 import db_objects.MedicalRecord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,7 +18,6 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -19,11 +18,6 @@
                </font>
             </Label>
             <Button fx:id="signoutButton" layoutX="1168.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Sign out">
-               <font>
-                  <Font name="Malgun Gothic" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="settingButton" layoutX="1056.0" layoutY="27.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" style="-fx-border-radius: 25px; -fx-background-radius: 25px; -fx-background-color: #FEFEFE;" stylesheets="@../styles/main.css" text="Settings">
                <font>
                   <Font name="Malgun Gothic" size="16.0" />
                </font>
@@ -64,6 +58,5 @@
             <Font name="Malgun Gothic" size="16.0" />
          </font>
       </Button>
-      <TextArea fx:id="appLog" editable="false" layoutX="14.0" layoutY="233.0" prefHeight="199.0" prefWidth="330.0" />
    </children>
 </AnchorPane>

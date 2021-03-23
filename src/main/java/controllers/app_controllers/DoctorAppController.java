@@ -1,8 +1,5 @@
 package controllers.app_controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import controllers.BaseController;
 import controllers.app_objects.DoctorAppTableRow;
 import event_handlers.DoctorAppTableHandler;
@@ -14,6 +11,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static constants.FxmlValues.DISEASES_FXML_PATH;
 import static constants.FxmlValues.LOGIN_FXML_PATH;
 
@@ -24,8 +24,6 @@ public class DoctorAppController extends BaseController {
     private URL location;
     @FXML
     private Button signoutButton;
-    @FXML
-    private Button settingButton;
     @FXML
     private TableView<DoctorAppTableRow> doctorTable;
     @FXML
@@ -46,8 +44,6 @@ public class DoctorAppController extends BaseController {
     private Text typeText;
     @FXML
     private Button diseasesButton;
-    @FXML
-    private TextArea appLog;
 
     @FXML
     void initialize() {

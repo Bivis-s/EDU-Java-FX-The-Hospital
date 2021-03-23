@@ -18,6 +18,10 @@ import static constants.FxmlValues.*;
 
 public class PatientAppController extends BaseController {
     @FXML
+    private ResourceBundle resources;
+    @FXML
+    private URL location;
+    @FXML
     private Text myAccountPhone;
     @FXML
     private Text myAccountBirthDate;
@@ -28,13 +32,7 @@ public class PatientAppController extends BaseController {
     @FXML
     private Text myAccountName;
     @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
-    @FXML
     private Button signoutButton;
-    @FXML
-    private Button settingButton;
     @FXML
     private TableView<PatientAppTableRow> doctorTable;
     @FXML
@@ -45,8 +43,6 @@ public class PatientAppController extends BaseController {
     private TableColumn<PatientAppTableRow, String> doctorsTypeColumn;
     @FXML
     private TableColumn<PatientAppTableRow, Button> appointDoctorColumn;
-    @FXML
-    private TextArea appLog;
 
     @FXML
     void initialize() {

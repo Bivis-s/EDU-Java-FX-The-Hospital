@@ -1,13 +1,13 @@
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import event_handlers.SignUpPatientHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static constants.FxmlValues.LOGIN_FXML_PATH;
 

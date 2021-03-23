@@ -1,11 +1,9 @@
 package event_handlers;
 
-import controllers.app_controllers.MyRecordsController;
 import controllers.app_controllers.PatientMedicalCardController;
 import controllers.app_objects.PatientMedicalCardTableRow;
 import db_connection.HospitalDBConnector;
 import db_objects.MedicalRecord;
-import db_objects.PatientAppointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
