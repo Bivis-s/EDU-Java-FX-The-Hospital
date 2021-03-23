@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.app_controllers.AppController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #FEFEFE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.app_controllers.DoctorAppController">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: #E83535;">
          <children>
-            <Label layoutX="503.0" layoutY="22.0" text="The Hospital" textFill="WHITE">
+            <Label layoutX="424.0" layoutY="22.0" text="The Hospital Doctor" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="48.0" />
                </font>
@@ -32,10 +32,11 @@
       </AnchorPane>
       <TableView fx:id="doctorTable" layoutX="358.0" layoutY="100.0" prefHeight="620.0" prefWidth="922.0">
         <columns>
-          <TableColumn fx:id="doctorsNameColumn" prefWidth="342.0" text="Doctor's Name" />
-          <TableColumn fx:id="doctorsPhoneColumn" minWidth="7.0" prefWidth="251.0" text="Doctor's Phone" />
-            <TableColumn fx:id="doctorsTypeColumn" prefWidth="178.0" text="Specialty" />
-            <TableColumn fx:id="recordToDoctorColumn" prefWidth="165.0" text="Record" />
+          <TableColumn fx:id="patientNameColumn" editable="false" prefWidth="342.0" text="Patient's name" />
+          <TableColumn fx:id="patientPhoneColumn" editable="false" minWidth="7.0" prefWidth="251.0" sortable="false" text="Patient's phone" />
+            <TableColumn fx:id="appointmentDateColumn" editable="false" prefWidth="121.0" text="Date" />
+            <TableColumn fx:id="appointmentTimeColumn" editable="false" prefWidth="85.0" sortable="false" text="Time" />
+            <TableColumn fx:id="patientCardColumn" editable="false" prefWidth="124.0" sortable="false" text="Card" />
         </columns>
       </TableView>
       <Text layoutX="14.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My account:">
@@ -43,31 +44,26 @@
             <Font name="Malgun Gothic Bold" size="24.0" />
          </font>
       </Text>
-      <Text fx:id="myAccountName" layoutX="14.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="119.13671875">
+      <Text fx:id="nameText" layoutX="14.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="119.13671875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="myAccountPhone" layoutX="14.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="119.13671875">
+      <Text fx:id="phoneText" layoutX="14.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="119.13671875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="myAccountBirthDate" layoutX="14.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of birth" wrappingWidth="119.13671875">
+      <Text fx:id="typeText" layoutX="14.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="119.13671875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="myRecords" layoutX="14.0" layoutY="662.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="330.0" style="-fx-background-color: #E83535;" stylesheets="@../styles/main.css" text="My records" textFill="WHITE">
+      <Button fx:id="diseasesButton" layoutX="14.0" layoutY="662.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="330.0" style="-fx-background-color: #E83535;" stylesheets="@../styles/main.css" text="Diseases" textFill="WHITE">
          <font>
             <Font name="Malgun Gothic" size="16.0" />
          </font>
       </Button>
-      <TextArea fx:id="appLog" layoutX="14.0" layoutY="233.0" prefHeight="199.0" prefWidth="330.0" />
-      <Button fx:id="myMedicalCard" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="330.0" style="-fx-background-color: #E83535;" stylesheets="@../styles/main.css" text="My medical card" textFill="WHITE">
-         <font>
-            <Font name="Malgun Gothic" size="16.0" />
-         </font>
-      </Button>
+      <TextArea fx:id="appLog" editable="false" layoutX="14.0" layoutY="233.0" prefHeight="199.0" prefWidth="330.0" />
    </children>
 </AnchorPane>
