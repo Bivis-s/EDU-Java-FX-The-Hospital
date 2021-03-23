@@ -4,10 +4,12 @@ import db_objects.Account;
 import db_objects.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.log4j.Log4j2;
 import utils.Utils;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Log4j2
 public class Patient extends Entity {
     private String name;
     private String dateOfBirth;
@@ -30,5 +32,25 @@ public class Patient extends Entity {
         if (Utils.isAccountStringEmpty(address, "Address field is empty")) {
             this.address = address;
         }
+    }
+
+    public String getName() {
+        log.info("Get patient name " + name);
+        return name;
+    }
+
+    public String getDateOfBirth() {
+        log.info("Get patient birthdate " + dateOfBirth);
+        return dateOfBirth;
+    }
+
+    public String getAddress() {
+        log.info("Get patient address " + address);
+        return address;
+    }
+
+    public Account getAccount() {
+        log.info("Get patient account " + account);
+        return account;
     }
 }
