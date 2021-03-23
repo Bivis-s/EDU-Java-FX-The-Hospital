@@ -1,56 +1,75 @@
 drop table accounts;
-drop table tickets;
+drop table doctors;
+drop table patients;
+drop table appointments;
+drop table diseases;
+drop table medical_records;
+drop table card_records;
+drop table medical_cards;
 
 create table accounts
 (
-    id       integer primary key autoincrement not null,
-    name     text                              not null,
-    phone    text                              not null,
-    password text                              not null,
-    type     text
+    id       integer primary key autoincrement,
+    phone    text,
+    password text
 );
 
-insert into accounts (name, phone, password, type)
-values ('pupkin', '+3352677120', 'Asdf*&3gs;d', 'patient');
-
-select *
-from accounts;
-
-select count(*)
-from accounts;
-
-create table tickets
+create table doctors
 (
-    id         integer primary key autoincrement not null,
-    date       text                              not null,
-    time       text                              not null,
-    patient_id integer                           not null,
-    doctor_id  integer                           not null,
-    foreign key (patient_id) references accounts (id),
-    foreign key (doctor_id) references accounts (id)
+    id         integer primary key autoincrement,
+    name       text,
+    type       text,
+    account_id integer,
+    foreign key (account_id) references accounts (id)
 );
 
-insert into tickets (date, time, patient_id, doctor_id)
-VALUES ('19.03.2021', '13:30', 1, 2);
-insert into tickets (date, time, patient_id, doctor_id)
-VALUES ('20.03.2021', '11:00', 4, 2);
+create table patients
+(
+    id            integer primary key autoincrement,
+    name          text,
+    date_of_birth text,
+    address       text,
+    account_id    integer,
+    foreign key (account_id) references accounts (id)
+);
 
-select *
-from tickets;
+create table appointments
+(
+    id         integer primary key autoincrement,
+    date       text,
+    time       text,
+    patient_id integer,
+    doctor_id  integer,
+    foreign key (patient_id) references patients (id),
+    foreign key (doctor_id) references doctors (id)
+);
 
-select count(*)
-from tickets
-where doctor_id = 2
-  and date = '19.03.2021'
-  and time = '13:30';
+create table diseases
+(
+    id     integer primary key autoincrement,
+    name   text,
+    degree integer
+);
 
-select date, time, doctor.id as doctor_id, patient.name as patient_name, patient.id as patient_id
-from tickets
-         inner join accounts doctor on doctor.id = tickets.doctor_id
-         inner join accounts patient on patient.id = tickets.patient_id;
+create table medical_records
+(
+    id         integer primary key autoincrement,
+    note       text,
+    disease_id integer,
+    foreign key (disease_id) references diseases (id)
+);
 
-select date, time, doctor.id as doctor_id, doctor.name as doctor_name
-from tickets
-         inner join accounts doctor on doctor.id = tickets.doctor_id
-         inner join accounts patient on patient.id = tickets.patient_id
-where patient.id = 1;
+create table card_records
+(
+    medical_card_id   integer,
+    medical_record_id integer,
+    foreign key (medical_card_id) references medical_cards (id),
+    foreign key (medical_record_id) references medical_records (id)
+);
+
+create table medical_cards
+(
+    id         integer primary key autoincrement,
+    patient_id integer,
+    foreign key (patient_id) references patients (id)
+);
