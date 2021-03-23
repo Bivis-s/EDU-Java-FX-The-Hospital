@@ -5,6 +5,7 @@ import db_objects.users.Doctor;
 import db_objects.users.Patient;
 import errors.NoSuchAccountError;
 import lombok.extern.log4j.Log4j2;
+import utils.Utils;
 
 import java.io.File;
 import java.sql.*;
@@ -31,36 +32,6 @@ public class HospitalDBConnector {
         }
         return hospitalDBConnector;
     }
-
-//
-//    public ObservableList<MyRecordsTableRow> getRecords(int usersId) {
-//        try {
-//            String query = "select " + TICKETS_DATE_COLUMN_NAME + ", " + TICKETS_TIME_COLUMN_NAME + ", doctor.id as doctor_id, doctor.name as doctor_name " +
-//                    "from " + TICKETS_TABLE_NAME + " " +
-//                    "         inner join " + ACCOUNTS_TABLE_NAME + " doctor on doctor.id = " + TICKETS_TABLE_NAME + ".doctor_id " +
-//                    "         inner join " + ACCOUNTS_TABLE_NAME + " patient on patient.id = " + TICKETS_TABLE_NAME + ".patient_id " +
-//                    "where patient.id = ?;";
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setInt(1, usersId);
-//            ObservableList<MyRecordsTableRow> myRecordsTableRows = FXCollections.observableArrayList();
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            while (resultSet.next()) {
-//                MyRecordsTableRow myRecordsTableRow = new MyRecordsTableRow();
-//                myRecordsTableRow.setTime(resultSet.getString(TICKETS_TIME_COLUMN_NAME));
-//                myRecordsTableRow.setDate(resultSet.getString(TICKETS_DATE_COLUMN_NAME));
-//                myRecordsTableRow.setDoctorsName(resultSet.getString("doctor_name"));
-//                myRecordsTableRow.setDoctorId(resultSet.getInt("doctor_id"));
-//                myRecordsTableRow.setCancelRecordButton(BaseController.createCancelRecordButton(
-//                        myRecordsTableRow.getDoctorId(),
-//                        myRecordsTableRow.getDate(),
-//                        myRecordsTableRow.getTime()));
-//                myRecordsTableRows.add(myRecordsTableRow);
-//            }
-//            return myRecordsTableRows;
-//        } catch (SQLException e) {
-//            throw new Error(e.getMessage());
-//        }
-//    }
 
     public void addAccount(Account account) throws SQLException {
         String query = "insert into accounts(phone, password) values (?, ?);";
@@ -162,8 +133,8 @@ public class HospitalDBConnector {
         rs.next();
         Doctor doctor = new Doctor();
         doctor.setId(rs.getInt("id"));
-        doctor.setName(rs.getString("phone"));
-        doctor.setType(rs.getString("password"));
+        doctor.setName(rs.getString("name"));
+        doctor.setType(rs.getString("type"));
         doctor.setAccount(getAccountById(rs.getInt("account_id")));
         return doctor;
     }
@@ -184,6 +155,17 @@ public class HospitalDBConnector {
         ResultSet rs = ps.executeQuery();
         rs.next();
         return rs.getInt("id");
+    }
+
+    public int getPatientIdByMedicalCardId(int medicalCardId) throws SQLException {
+        String query = "select patient_id " +
+                "from medical_cards " +
+                "where id = ?;";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, medicalCardId);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("patient_id");
     }
 
     public Disease getDisease(int diseaseId) throws SQLException {
@@ -340,12 +322,12 @@ public class HospitalDBConnector {
     }
 
     public List<DoctorAppointment> getDoctorAppointments(int doctorId) throws SQLException {
-        String query = "select appointments.id, " +
+        String query = "select appointments.id as appointment_id, " +
                 "appointments.date, " +
                 "appointments.time, " +
                 "appointments.patient_id, " +
                 "patients.name, " +
-                "medical_cards.id " +
+                "medical_cards.id as medical_card_id " +
                 "from appointments " +
                 "         inner join patients on appointments.patient_id = patients.id " +
                 "         inner join medical_cards on appointments.patient_id = medical_cards.patient_id " +
@@ -353,15 +335,18 @@ public class HospitalDBConnector {
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, doctorId);
         ResultSet rs = ps.executeQuery();
+
+        Utils.logAllResultSetColumns(rs);
+
         List<DoctorAppointment> doctorAppointments = new ArrayList<>();
         while (rs.next()) {
             DoctorAppointment appointment = new DoctorAppointment();
-            appointment.setId(rs.getInt("appointments.id"));
+            appointment.setId(rs.getInt("appointment_id"));
             appointment.setDate(rs.getString("date"));
             appointment.setTime(rs.getString("time"));
             appointment.setPatientId(rs.getInt("patient_id"));
             appointment.setPatientName(rs.getString("name"));
-            appointment.setCardId(rs.getInt("medical_cards.id"));
+            appointment.setCardId(rs.getInt("medical_card_id"));
             doctorAppointments.add(appointment);
         }
         return doctorAppointments;
@@ -405,5 +390,13 @@ public class HospitalDBConnector {
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, account.getId());
         return isThere(ps);
+    }
+
+    public void deleteMedicalCardRecordById(int recordId) throws SQLException {
+        String query = "delete from card_records " +
+                "where medical_record_id = ?;";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, recordId);
+        ps.executeUpdate();
     }
 }

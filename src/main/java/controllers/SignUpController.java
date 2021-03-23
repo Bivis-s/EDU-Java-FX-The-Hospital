@@ -41,6 +41,6 @@ public class SignUpController extends BaseController {
         goToLoginPageButton.setOnAction(event -> changePage(goToLoginPageButton, LOGIN_FXML_PATH));
 
         signUpButton.setOnAction(new SignUpHandler(signUpButton, getDbConnector(), this,
-                signUpPhoneField, signUpPasswordField, patientRadiobutton.isSelected()));
+                signUpPhoneField, signUpPasswordField, patientRadiobutton));
     }
 }

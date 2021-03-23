@@ -1,6 +1,5 @@
 package event_handlers;
 
-import controllers.BaseController;
 import controllers.SignUpController;
 import db_connection.HospitalDBConnector;
 import db_objects.Account;
@@ -8,12 +7,14 @@ import errors.IncorrectAccountDataError;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.SQLException;
 
+import static constants.FxmlValues.SIGN_UP_DOCTOR_PATH;
 import static constants.FxmlValues.SIGN_UP_PATIENT_PATH;
 
 @Getter
@@ -22,15 +23,15 @@ public class SignUpHandler extends BaseHandler {
     private SignUpController controller;
     private TextField phoneField;
     private TextField passwordField;
-    private boolean isPatient;
+    private RadioButton patientRadioButton;
 
     public SignUpHandler(Parent parent, HospitalDBConnector dbConnector, SignUpController controller,
-                         TextField phoneField, TextField passwordField, boolean isPatient) {
+                         TextField phoneField, TextField passwordField, RadioButton patientRadioButton) {
         super(parent, dbConnector);
         this.controller = controller;
         this.phoneField = phoneField;
         this.passwordField = passwordField;
-        this.isPatient = isPatient;
+        this.patientRadioButton = patientRadioButton;
     }
 
     @Override
@@ -41,25 +42,18 @@ public class SignUpHandler extends BaseHandler {
         try {
             account.setPhone(phone);
             account.setPassword(password);
+            if (getDbConnector().isThereAccountWithSuchPhone(account.getPhone())) {
+                throw new IncorrectAccountDataError("An account with same number is already exists");
+            }
             getDbConnector().addAccount(account);
             controller.setCurrentAccount(getDbConnector().getAccount(phone, password));
-            if (isPatient) {
+            if (patientRadioButton.isSelected()) {
                 controller.changePage(getParent(), SIGN_UP_PATIENT_PATH);
             } else {
-                // TODO create doctor method
+                controller.changePage(getParent(), SIGN_UP_DOCTOR_PATH);
             }
         } catch (IncorrectAccountDataError | SQLException e) {
             controller.showAlert(Alert.AlertType.WARNING, "Can't create an account", e.getMessage());
         }
-
-//            try {
-//                showAlert(Alert.AlertType.CONFIRMATION, "Successful", "Account has been created");
-//                setCurrentUser(signUpPhoneField.getText(), signUpPasswordField.getText());
-//                changePage(signUpButton, APP_FXML_PATH);
-//            } catch (AccountAlreadyExistsError e) {
-//                showAlert(Alert.AlertType.ERROR, "Can't create an account",
-//                        "Account with such phone already exists");
-//                e.printStackTrace();
-//            }
     }
 }
