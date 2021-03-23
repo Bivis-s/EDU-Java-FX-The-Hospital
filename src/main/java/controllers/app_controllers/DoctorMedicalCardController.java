@@ -15,6 +15,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static constants.FxmlValues.ADD_MEDICAL_RECORD_FXML_PATH;
+
 public class DoctorMedicalCardController extends BaseController {
     public static int chosenCardId;
 
@@ -59,14 +61,13 @@ public class DoctorMedicalCardController extends BaseController {
                             .getAccountById(getDbConnector()
                                     .getPatientIdByMedicalCardId(getChosenCardId()))
                             .getId());
+
             nameField.setText(patient.getName());
             birthdayField.setText(patient.getDateOfBirth());
             addressField.setText(patient.getAddress());
             phoneField.setText(patient.getAccount().getPhone());
-//            TODO ADD ADDING RECORDS
-//            addRecordButton.setOnAction(event ->
-//                openPage()
-//            );
+
+            addRecordButton.setOnAction(event -> changePage(addRecordButton, ADD_MEDICAL_RECORD_FXML_PATH));
         } catch (SQLException e) {
             e.printStackTrace();
         }

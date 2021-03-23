@@ -9,5 +9,5 @@ import lombok.Setter;
 public class DiseasesTableRow {
     private String name;
     private int degree;
-    private Button deleteButton;
+    private Button button;
 }

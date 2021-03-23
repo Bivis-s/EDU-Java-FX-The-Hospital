@@ -1,6 +1,6 @@
 package event_handlers;
 
-import controllers.app_controllers.DiseasesController;
+import controllers.app_controllers.SelectDiseaseController;
 import controllers.app_objects.DiseasesTableRow;
 import db_connection.HospitalDBConnector;
 import db_objects.Disease;
@@ -17,34 +17,36 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DiseasesTableHandler extends BaseHandler {
-    private final DiseasesController controller;
+import static constants.FxmlValues.ADD_MEDICAL_RECORD_FXML_PATH;
+
+public class SelectDiseaseTableHandler extends BaseHandler {
+    private final SelectDiseaseController controller;
     private final TableView<DiseasesTableRow> diseasesTable;
     private final TableColumn<DiseasesTableRow, String> diseaseName;
     private final TableColumn<DiseasesTableRow, String> diseaseDegree;
-    private final TableColumn<DiseasesTableRow, Button> deleteDiseaseColumn;
+    private final TableColumn<DiseasesTableRow, String> selectDiseaseColumn;
 
-    public DiseasesTableHandler(Parent parent, HospitalDBConnector dbConnector, DiseasesController controller,
-                                TableView<DiseasesTableRow> diseasesTable,
-                                TableColumn<DiseasesTableRow, String> diseaseName,
-                                TableColumn<DiseasesTableRow, String> diseaseDegree,
-                                TableColumn<DiseasesTableRow, Button> deleteDiseaseColumn) {
+    public SelectDiseaseTableHandler(Parent parent, HospitalDBConnector dbConnector, SelectDiseaseController controller,
+                                     TableView<DiseasesTableRow> diseasesTable,
+                                     TableColumn<DiseasesTableRow, String> diseaseName,
+                                     TableColumn<DiseasesTableRow, String> diseaseDegree,
+                                     TableColumn<DiseasesTableRow, String> selectDiseaseColumn) {
         super(parent, dbConnector);
         this.controller = controller;
         this.diseasesTable = diseasesTable;
         this.diseaseName = diseaseName;
         this.diseaseDegree = diseaseDegree;
-        this.deleteDiseaseColumn = deleteDiseaseColumn;
+        this.selectDiseaseColumn = selectDiseaseColumn;
     }
 
-    private Button createDeleteDiseaseButton(int diseaseId) {
+    private Button createSelectDiseaseButton(int diseaseId) {
         Button button = new Button();
-        button.setText("Delete");
+        button.setText("Select");
         button.setOnAction(event -> {
             try {
-                getDbConnector().deleteDiseaseById(diseaseId);
-                controller.showAlert(Alert.AlertType.CONFIRMATION, "All good", "Disease has been deleted");
-                handle(new ActionEvent());
+                controller.setSelectedDisease(getDbConnector().getDisease(diseaseId));
+                controller.showAlert(Alert.AlertType.CONFIRMATION, "All good", "Disease has been selected");
+                controller.changePage(getParent(), ADD_MEDICAL_RECORD_FXML_PATH);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -59,7 +61,7 @@ public class DiseasesTableHandler extends BaseHandler {
             DiseasesTableRow row = new DiseasesTableRow();
             row.setName(disease.getName());
             row.setDegree(disease.getDegree());
-            row.setButton(createDeleteDiseaseButton(disease.getId()));
+            row.setButton(createSelectDiseaseButton(disease.getId()));
             rows.add(row);
         }
         return rows;
@@ -70,7 +72,7 @@ public class DiseasesTableHandler extends BaseHandler {
         try {
             diseaseName.setCellValueFactory(new PropertyValueFactory<>("name"));
             diseaseDegree.setCellValueFactory(new PropertyValueFactory<>("degree"));
-            deleteDiseaseColumn.setCellValueFactory(new PropertyValueFactory<>("button"));
+            selectDiseaseColumn.setCellValueFactory(new PropertyValueFactory<>("button"));
             diseasesTable.setItems(createDiseasesTableRowList());
         } catch (SQLException e) {
             e.printStackTrace();
