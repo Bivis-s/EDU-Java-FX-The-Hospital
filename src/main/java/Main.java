@@ -15,8 +15,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    // запуск приложения
     public static void main(String[] args) {
-        launch(args);
+        launch(args); // запускает метод start
     }
 
     // TODO REMOVING ACCOUNTS

@@ -70,7 +70,7 @@ public class DoctorMedicalCardTableHandler extends BaseHandler {
         for (MedicalRecord record : medicalRecords) {
             DoctorMedicalCardTableRow row = new DoctorMedicalCardTableRow();
             row.setDiseaseName(record.getDisease().getName());
-            row.setDiseaseDegree(record.getDisease().getId());
+            row.setDiseaseDegree(record.getDisease().getDegree());
             row.setRecordNote(record.getNote());
             row.setDeleteRecord(createDeleteRecordButton(record.getId()));
             rows.add(row);

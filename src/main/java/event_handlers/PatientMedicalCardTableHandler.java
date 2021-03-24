@@ -52,7 +52,7 @@ public class PatientMedicalCardTableHandler extends BaseHandler {
         for (MedicalRecord record : medicalRecords) {
             PatientMedicalCardTableRow row = new PatientMedicalCardTableRow();
             row.setDiseaseName(record.getDisease().getName());
-            row.setDiseaseDegree(record.getDisease().getId());
+            row.setDiseaseDegree(record.getDisease().getDegree());
             row.setNote(record.getNote());
             rows.add(row);
         }
